@@ -11,6 +11,7 @@ def main():
     while game_running:
         size = int(input("size:"))
         ttt = TTTC.TicTacToe(size, size)
+        print("Strategies: m for minimax, a for alphabeta, r for random")
         player_x = input("Input strategy for X player:")
         player_o = input("Input strategy for O player:")
         TTTC.play_game(ttt, dict(X=player_strats.get(player_x, TTTC.random_player), O=player_strats.get(player_o, TTTC.random_player)), verbose=True).utility
