@@ -119,7 +119,7 @@ def minimax_search(game, state, cutoff=cutoff_depth(6), h=lambda s, p: 0):
 infinity = math.inf
 
 
-def cache1(function):
+def ab_cache(function):
     "Like lru_cache(None), but only considers the first argument of function."
     cache = {}
 
@@ -132,12 +132,11 @@ def cache1(function):
 
 
 def alphabeta_search(game, state, cutoff=cutoff_depth(12), h=lambda s, p: 0):
-    """Search game to determine best action; use alpha-beta pruning.
-    As in [Figure 5.7], this version searches all the way to the leaves."""
+    """Search game to determine best action; use alpha-beta pruning."""
 
     player = state.to_move
 
-    @cache1
+    @ab_cache
     def max_value(state, alpha, beta, depth):
         if game.is_terminal(state):
             return game.utility(state, player), None
@@ -153,7 +152,7 @@ def alphabeta_search(game, state, cutoff=cutoff_depth(12), h=lambda s, p: 0):
                 return v, move
         return v, move
 
-    @cache1
+    @ab_cache
     def min_value(state, alpha, beta, depth):
         if game.is_terminal(state):
             return game.utility(state, player), None
